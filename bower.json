@@ -1,0 +1,7 @@
+{
+  "name": "BullhornJS",
+  "version": "0.6.4",
+  "main": ["bullhorn.js"],
+  "dependencies": {},
+  "devDependencies": {}
+}

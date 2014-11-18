@@ -1,0 +1,19 @@
+{
+  "name": "BullhornJS",
+  "version": "0.6.4",
+  "build": 2150,
+  "description": "Javascript library to conviently connect to the Bullhorn REST Api.",
+  "author": {
+    "name": "Bullhorn, Inc."
+  },
+  "dependencies": {
+  },
+  "engines": {
+    "node": ">= 0.8.9"
+  },
+  "devDependencies": {},
+  "repository" : {
+    "type" : "git",
+    "url" : "git@github.com:bullhorn/bullhornjs.git"
+  }
+}
