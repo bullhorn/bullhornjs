@@ -12,6 +12,7 @@ This is an early version. I appreciate any feedback, comments, and help if you t
 - Plain JavaScript
 - Works transparently in the browser
 - Simple API to manipulate data (create, update, delete, upsert)
+- CommonJS format
 
 ### Installation
 
@@ -77,8 +78,30 @@ Check out the demo in the `demo` folder. To run the demo:
 > http-server
 ```
 
-open `localhost:8080/demo` in your browser
+open `http://localhost:8080/demo` in your browser
 
 ### Server
 
 Because the browser should not know your `CLIENT_ID` or `CLIENT_SECRET` your will need to handle the OAuth flow separately then have the server provide the `BhRestToken` and `restUrl` to the client.
+
+### Building
+
+We build two versions of the source, 1) we create a bundle using [rollup](http://rollupjs.org/) and 2) we compile all the sources separately with babel. All transpiled files are stored in the `lib` directory.
+
+##### Rollup Bundle
+
+    This uses `rollup.config.js` to determine how to rollup the source. The bundle is located in `lib/bundle.js`. Configuration options are available [here](https://github.com/rollup/rollup/wiki/Command-Line-Interface). To create a new bundle:
+
+    npm run bundle
+
+##### Babel Compile
+
+    This uses `.babelrc` to determine how to babel compiles the source. The files are transpiled to the `lib/` directory. Other configuration options are available [here](http://babeljs.io/docs/usage/babelrc/). To rebuild these:
+
+    npm run compile
+
+### Testing
+
+We use [Jest](https://facebook.github.io/jest/) to run all of our unit test. To run the tests, in the working directory:
+
+    npm test
