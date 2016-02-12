@@ -1,0 +1,15 @@
+# Package/Dependencies
+lib/
+bower_components/
+jspm_packages/
+node_modules/
+
+# Build results
+.[Bb]in/
+
+# Generated Documentation
+.[Dd]oc/
+
+# Others
+.DS_Store
+.idea/

@@ -1,7 +1,10 @@
 {
-  "name": "BullhornJS",
-  "version": "0.6.4",
-  "main": ["bullhorn.js"],
+  "name": "bullhornjs",
+  "version": "1.0.0",
+  "main": ["lib/bundle.js"],
+  "ignore": [
+      "test", "src", "demo", "node_modules"
+  ],
   "dependencies": {},
   "devDependencies": {}
 }

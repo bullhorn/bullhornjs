@@ -10,85 +10,75 @@ This is an early version. I appreciate any feedback, comments, and help if you t
 
 - No jQuery dependency
 - Plain JavaScript
-- Complete OAuth login workflow
 - Works transparently in the browser
-- Automatically refreshes OAuth access_token on expiration
 - Simple API to manipulate data (create, update, delete, upsert)
-- CORS or JSONP support
+
+### Installation
+
+##### NPM
+
+    npm install --save bullhornjs
+
+##### Bower
+
+    bower install --save bullhornjs
 
 ### Usage
 
-1. Initialize (Optional):
+1. Initialize
+```
+var bullhorn = new Bullhorn({
+    BhRestToken: '~BULLHORN_REST_TOKEN~',
+    restUrl: '~BULLHORN_REST_URL~',
+});
+```
 
-    BullhornJS is built to work out of the box with sensible defaults. **You only need to invoke bullhorn.init() if you want to override these defaults**:
-
-    ```
-    Bullhorn.init({
-        clientId: '~BULLHORN_CLIENT_ID~',
-        apiVersion: '*',
-        authUrl: 'https://login.bullhorn.com'
+2. Check if logged in:
+```
+bullhorn.isLoggedIn()
+    .then(function(success){
+        alert('Login success: ' + success);
+    })
+    .catch(function(error){
+        alert('Error: ' + error.message);
     });
-    ```
-
-2. Login:
-    ```
-    bullhorn.authenticate(url).then(
-        function(success){
-            alert('Login success: ' + success);
-        },function(error) {
-            alert('Login failed: ' + error);
-        });
-    ```
+```
 
 3. Invoke a function: Search(), Query(), Entity(), Meta():
-    ```
-    var job = new Entity('entity/JobOrder').fields('title'); //Most functions are all fluent
-    job.title = 'My New Job'; //the 'fields' function created a getter and setter for 'title'
-    job.save(); //returns a promise
-    ```
+```
+// Most functions are all fluent (ie. they return 'this')
+var job = new Entity('entity/JobOrder').fields('title');
+// the 'fields' function created a getter and setter for 'title'
+job.title = 'My New Job';
+job.save(); //returns a promise
+```
 
 4. Use a convenience method: CandidateSearch(), JobOrder(), ContactMeta(), etc...:
-    ```
-    var job = new Job().fields('title'); //works the same as above
-    job.get(123).then(function(response){
-        console.log('Job Title is ', job.title);
-    });
-    ```
+```
+// This command creates the convenience functions
+Bullhorn.initDefaults();
+// Now you can use them
+var job = new Job().fields('title'); //works the same as above
+job.get(123).then(function(response){
+    console.log('Job Title is ', job.title);
+});
+```
 
 ### Sample App
 
-Create a file named index.html anywhere on you file system:
+Check out the demo in the `demo` folder. To run the demo:
 
 ```
-<html>
-<body>
-<ul id="list"></ul>
-<script src="bullhorn.js"></script>
-<script>
-var login = "BULLHORN_OAUTH_SERVER";
-var bullhorn = new Bullhorn();
-bh.authenticate(login).then(function(ping){
-    var me = Bullhorn.user.id;
-    var js = new JobSearch()
-        .fields('id', 'title')
-        .params({count:20, showTotalMatched:true})
-        .query('isDeleted:0 AND owner.id:'+me);
-
-    js.run().then(function(response){
-        var totalJobs = response.total;
-        var jobs = js.records;
-        var str = '';
-        jobs.forEach(function(job, i){
-            str += '<li>' + job.title + '</li>';
-        });
-        document.getElementById('list').innerHTML = str;
-    });
-});
-</script>
-</body>
-</html>
+> git clone https://github.com/bullhorn/bullhornjs.git
+> cd bullhornjs
+> npm install
+> npm run bundle
+> npm install -g http-server
+> http-server
 ```
+
+open `localhost:8080/demo` in your browser
 
 ### Server
 
-Because of the browser's cross-origin restrictions, your JavaScript application hosted on your own server (or localhost) will not be able to make API calls directly to the *.bullhorn.com domain. The solution is to proxy your API calls through your own server. You can use your own proxy server, but to provide an integrated development experience.
+Because the browser should not know your `CLIENT_ID` or `CLIENT_SECRET` your will need to handle the OAuth flow separately then have the server provide the `BhRestToken` and `restUrl` to the client.

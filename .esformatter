@@ -1,0 +1,8 @@
+{
+    "indent": {
+        "value": "    "
+    },
+    "plugins": [
+       "esformatter-ignore"
+    ]
+}
