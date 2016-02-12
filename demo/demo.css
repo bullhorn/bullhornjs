@@ -4,3 +4,19 @@ pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
 .boolean { color: blue; }
 .null { color: magenta; }
 .key { color: red; }
+
+
+header {
+    display: flex;
+}
+
+header textarea {
+    margin: 0px;
+    height: 80px;
+    flex: 1;
+}
+
+.actions {
+    display: flex;
+    height: 40px
+}

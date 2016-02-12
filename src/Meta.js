@@ -24,6 +24,10 @@ function EnsureUnique(arr) {
     return a;
 }
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export class Meta {
     constructor(endpoint, parser){
         this.endpoint = endpoint;
@@ -46,7 +50,7 @@ export class Meta {
 				if(item.name == 'address') item.readOnly = false;
 				if(item.name == 'dateAdded') item.readOnly = true;
 				if(item.name == 'timeUnits') item.readOnly = true;
-				if(!item.label) item.label = item.name.capitalize();
+				if(!item.label) item.label = capitalizeFirstLetter(item.name);
 
 				item.sortable = ['COMPOSITE', 'TO_MANY', 'TO_ONE'].indexOf(item.type.toUpperCase()) == -1;
 				item.searchField = item.name;
@@ -102,7 +106,8 @@ export class Meta {
 
 		if( !result ) {
 			let f = toFieldNotation(name);
-			Bullhorn.http().get(this.endpoint, {fields: f, meta:'full'})
+			Bullhorn.http()
+                .get(this.endpoint, {fields: f, meta:'full'})
                 .then( (response) => {
 					let obj = {},
 						names = name.split('.'),
@@ -159,28 +164,34 @@ export class Meta {
 			plid = Cache.get('PrivateLabel'),
 			name = this.entity + '-' + plid;
 
-		var success = function(response) {
-			me.entity = response.entity;
-			me.entityLabel = response.label;
-			me.parse(response.fields).then(function(){
-				interceptor.resolve(response);
-			});
-		};
-
-		var failure = function(message) {
-			interceptor.reject(message);
-		};
-
 		if ( Cache.has(name) ) {
-			success( Cache.get(name) );
+			let response = Cache.get(name);
+            this.entity = response.entity;
+            this.entityLabel = response.label;
+            this.parse(response.fields).then(() => {
+                interceptor.resolve(response);
+            });
 		} else {
-			Bullhorn.http().get(this.endpoint, this.parameters).then( function(response){
-				Cache.put(name, response);
-				success(response);
-			}, failure );
+			Bullhorn
+                .http()
+                .get(this.endpoint, this.parameters)
+                .then((response) => {
+			        Cache.put(name, response);
+                    return response;
+                })
+                .then((response) => {
+        			this.entity = response.entity;
+        			this.entityLabel = response.label;
+        			this.parse(response.fields).then(() => {
+        				interceptor.resolve(response);
+        			});
+        		})
+                .catch( (message) => {
+            		interceptor.reject(message);
+                });
 		}
 
-		return interceptor.promise();
+		return interceptor;
 	}
 
 	parse(fielddata) {
@@ -214,7 +225,7 @@ export class Meta {
 							enumerable: true
 						});
 					}
-				})(me, item.name, item.readOnly);
+				})(this, item.name, item.readOnly);
 				data[item.name] = item;
 			}
 			this.all = list;

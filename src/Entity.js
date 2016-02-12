@@ -21,7 +21,7 @@ export class Entity {
     fields(...args) {
         this.parameters.fields = args[0] instanceof Array ? args[0] : args;
 		for(let f of this.parameters.fields) {
-			let field = clean(field);
+			let field = clean(f);
 			(function(obj, field) {
 				if(!obj.data.hasOwnProperty(field)) {
 					Object.defineProperty(obj, field, {

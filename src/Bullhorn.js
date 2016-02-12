@@ -33,7 +33,7 @@ function CreateEntity(name, entity) {
 
 function CreateMeta(name, entity) {
     window[name] = function(parser) {
-        let m = new Meta('meta/' + entity + '/', parser);
+        let m = new Meta('meta/' + entity, parser);
         m.entity = entity;
         return m;
     }

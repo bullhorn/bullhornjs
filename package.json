@@ -1,6 +1,6 @@
 {
   "name": "bullhornjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "build": 2150,
   "description": "Javascript library to conviently connect to the Bullhorn REST Api.",
   "author": {
