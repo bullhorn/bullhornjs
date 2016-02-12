@@ -1,10 +1,25 @@
 {
   "name": "bullhornjs",
   "version": "1.0.0",
-  "main": ["lib/bundle.js"],
+  "main": [
+    "lib/bundle.js"
+  ],
   "ignore": [
-      "test", "src", "demo", "node_modules"
+    "test",
+    "src",
+    "demo",
+    "node_modules",
+    "**/.*",
+    "bower_components",
+    "tests"
   ],
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {},
+  "homepage": "https://github.com/bullhorn/bullhornjs",
+  "authors": [
+    "Brian Kimball <bkimball@bullhorn.com>"
+  ],
+  "description": "Javascript library to conviently connect to the Bullhorn REST Api.",
+  "moduleType": [],
+  "license": "MIT"
 }

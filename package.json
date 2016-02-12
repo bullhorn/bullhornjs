@@ -24,6 +24,9 @@
     "node": ">= 4.2.1",
     "npm": ">= 3"
   },
+  "publishConfig":{
+      "registry": "https://registry.npmjs.org"
+  },
   "repository" : {
     "type" : "git",
     "url" : "git@github.com:bullhorn/bullhornjs.git"
