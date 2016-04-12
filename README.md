@@ -61,7 +61,7 @@ Bullhorn.initDefaults();
 // Now you can use them
 var job = new Job().fields('title'); //works the same as above
 job.get(123).then(function(response){
-    console.log('Job Title is ', job.title);
+    console.log('Job Title is ', response.title);
 });
 ```
 
