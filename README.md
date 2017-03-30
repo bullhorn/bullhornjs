@@ -78,7 +78,7 @@ Check out the demo in the `demo` folder. To run the demo:
 > http-server
 ```
 
-open `http://localhost:8080/demo` in your browser
+open `http://localhost:8080/demo/index.html` in your browser
 
 ### Server
 
