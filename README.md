@@ -18,7 +18,7 @@ This is an early version. I appreciate any feedback, comments, and help if you t
 
 ##### NPM
 
-    npm install --save bullhornjs
+    npm install --save @bullhorn/bullhornjs
 
 ##### Bower
 
